@@ -1,9 +1,24 @@
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import CreatePost from './Pages/CreatePost/CreatePost';
+import Home from './Pages/Home/Home';
+import Login from './Pages/Login/Login/Login';
+import ManagePost from './Pages/ManagePost/ManagePost';
+import Footer from './Shared/Footer/Footer';
+import Header from './Shared/Header/Header';
 
 function App() {
   return (
     <>
-     <h1>Hello world</h1>
+    <Header />
+      <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/home' element={<Home />} />
+          <Route path='/create-post' element={<CreatePost />} />
+          <Route path='/manage-post' element={<ManagePost />} />
+          <Route path='/login' element={<Login />} />
+      </Routes>
+      <Footer />
     </>
   );
 }
