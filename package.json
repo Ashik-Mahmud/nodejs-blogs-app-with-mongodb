@@ -34,5 +34,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "axios": "^0.26.1",
+    "firebase": "^9.6.11",
+    "react-hot-toast": "^2.2.0",
+    "react-router-dom": "6",
+    "styled-components": "^5.3.5"
   }
 }
