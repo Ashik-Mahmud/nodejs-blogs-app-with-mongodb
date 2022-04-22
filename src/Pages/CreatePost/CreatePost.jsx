@@ -3,8 +3,10 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import styled from "styled-components";
 import { auth } from "../../Firebase/Firebase.config";
+import useTitle from "../../Hooks/useTitle";
 
 const CreatePost = () => {
+  useTitle("Create Post");
   const formRef = useRef(null);
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {

@@ -2,13 +2,14 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import useBlogs from "../../Hooks/useBlogs";
+import useTitle from "../../Hooks/useTitle";
 
 const BlogDetails = () => {
   const { blogId } = useParams();
   const { blogs } = useBlogs();
 
   const singleBlog = blogs.find((blog) => blog._id === blogId);
-
+  useTitle(singleBlog?.title);
   return (
     <BlogDetailsContainer>
       <div className="container">

@@ -4,8 +4,10 @@ import { BsSearch } from "react-icons/bs";
 import styled from "styled-components";
 import Loader from "../../Components/Loader/Loader";
 import useBlogs from "../../Hooks/useBlogs";
+import useTitle from "../../Hooks/useTitle";
 import Blog from "./Blog/Blog";
 const Blogs = () => {
+  useTitle("Articles");
   const [search, setSearch] = useState("");
   const { setBlogs, blogs, loading } = useBlogs();
 

@@ -5,8 +5,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { auth } from "../../Firebase/Firebase.config";
 import useBlogs from "../../Hooks/useBlogs";
+import useTitle from "../../Hooks/useTitle";
 
 const UpdatePost = () => {
+  useTitle("Update Post");
+
   const navigate = useNavigate();
   const { blogs } = useBlogs();
   const formRef = useRef(null);

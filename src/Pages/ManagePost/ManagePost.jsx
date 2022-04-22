@@ -5,7 +5,10 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { auth } from "../../Firebase/Firebase.config";
 import useBlogs from "../../Hooks/useBlogs";
+import useTitle from "../../Hooks/useTitle";
 const ManagePost = () => {
+  useTitle("Manage post");
+
   const navigate = useNavigate();
   const { blogs } = useBlogs();
   const [currentUserBlogs, setCurrentUserBlogs] = useState([]);
