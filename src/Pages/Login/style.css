@@ -20,7 +20,8 @@
   position: relative;
   margin-bottom: 0.6rem;
 }
-.input-group input {
+.input-group input,
+.input-group textarea {
   width: 100%;
   padding: 0.7rem;
   border: 1px solid #ccc;
