@@ -21,7 +21,6 @@ const CreatePost = () => {
     })
       .then((res) => res.json())
       .then((result) => {
-        console.log(result);
         if (result.acknowledged) {
           toast.success(`Article created successfully done.`);
         }

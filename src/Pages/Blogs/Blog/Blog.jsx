@@ -1,14 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-const Blog = ({ title, category, description, author, createdAt }) => {
+const Blog = ({ title, category, description, author, createdAt, url }) => {
   return (
     <BlogContainer>
       <div className="image">
-        <img
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6nno7EkxDJgi3dQ4MBPwn2ptJaN2PdkZNyQ&usqp=CAU"
-          alt=""
-        />
+        <img src={url} alt={title} />
       </div>
       <div className="details">
         <h3>{title}</h3>
