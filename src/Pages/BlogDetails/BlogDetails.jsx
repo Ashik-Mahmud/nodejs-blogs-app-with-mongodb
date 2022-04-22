@@ -44,6 +44,9 @@ const BlogDetails = () => {
 const BlogDetailsContainer = styled.section`
   position: relative;
   padding: 2rem;
+  @media (max-width: 668px) {
+    padding: 0rem;
+  }
   .card {
     position: relative;
     padding: 1rem;

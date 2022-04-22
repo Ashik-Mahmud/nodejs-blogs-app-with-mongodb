@@ -13,6 +13,11 @@
   position: relative;
   border-radius: 5px;
 }
+@media (max-width: 668px) {
+  .form-wrapper {
+    width: 100%;
+  }
+}
 .form-wrapper .input-group {
   display: flex;
   flex-direction: column;

@@ -34,21 +34,33 @@ const Hero = () => {
 const HeroContainer = styled.div`
   position: relative;
   padding: 10rem;
+  @media (max-width: 668px) {
+    padding: 2rem 1rem;
+  }
   .hero-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 2rem;
     position: relative;
+    @media (max-width: 668px) {
+      flex-direction: column;
+    }
     .hero-text {
       width: 46%;
       display: flex;
       flex-direction: column;
       gap: 1rem;
       align-items: flex-start;
+      @media (max-width: 668px) {
+        width: 100%;
+      }
       h1 {
         font-size: 4rem;
         line-height: 1.2;
+        @media (max-width: 668px) {
+          font-size: 2rem;
+        }
       }
       p {
         color: #666;
@@ -58,6 +70,9 @@ const HeroContainer = styled.div`
     }
     .hero-image {
       width: 50%;
+      @media (max-width: 668px) {
+        width: 100%;
+      }
       img {
         /* width: 100%; */
       }

@@ -106,6 +106,9 @@ const CreatePost = () => {
 const CreatePostContainer = styled.section`
   position: relative;
   padding: 2rem;
+  @media (max-width: 668px) {
+    padding: 0rem;
+  }
   .form-wrapper {
     width: 100%;
   }

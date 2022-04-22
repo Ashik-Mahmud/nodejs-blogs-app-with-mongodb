@@ -58,16 +58,25 @@ const Blogs = () => {
 const BlogsContainer = styled.section`
   position: relative;
   padding: 2rem;
+  @media (max-width: 668px) {
+    padding: 0rem;
+  }
   .blogs-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-gap: 2rem;
     margin: 1rem 0rem;
+    @media (max-width: 668px) {
+      grid-template-columns: 1fr;
+    }
   }
   .title {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @media (max-width: 668px) {
+      flex-direction: column;
+    }
   }
   .search {
     position: relative;
@@ -77,6 +86,10 @@ const BlogsContainer = styled.section`
     padding: 0.4rem;
     width: 40%;
     border-radius: 5px;
+    @media (max-width: 668px) {
+      width: 100%;
+      margin-top: 2rem;
+    }
     input {
       border: none;
       outline: none;
