@@ -10,6 +10,7 @@ import Home from './Pages/Home/Home/Home';
 import Login from './Pages/Login/Login/Login';
 import SignUp from "./Pages/Login/SignUp/SignUp";
 import ManagePost from './Pages/ManagePost/ManagePost';
+import UpdatePost from './Pages/UpdatePost/UpdatePost';
 import Footer from './Shared/Footer/Footer';
 import Header from './Shared/Header/Header';
 import NotFound from './Shared/NotFound/NotFound';
@@ -31,6 +32,7 @@ function App() {
           <Route path='/blogs' element={<Blogs />} />
           <Route path='/create-post' element={<RequireAuth><CreatePost /></RequireAuth>} />
           <Route path='/manage-post' element={<RequireAuth><ManagePost /></RequireAuth>} />
+          <Route path='/update-post/:id' element={<RequireAuth><UpdatePost /></RequireAuth>} />
           <Route path='/login' element={<Login />} />
           <Route path='/sign-up' element={<SignUp />} />
 

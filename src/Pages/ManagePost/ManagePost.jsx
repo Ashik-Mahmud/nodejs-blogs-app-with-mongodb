@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { BiEdit, BiTrash } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -7,16 +8,41 @@ import useBlogs from "../../Hooks/useBlogs";
 const ManagePost = () => {
   const navigate = useNavigate();
   const { blogs } = useBlogs();
-  const currentUserArticles = blogs.filter(
-    (blog) => blog?.author?.uid === auth?.currentUser?.uid
-  );
-  console.log(currentUserArticles);
+  const [currentUserBlogs, setCurrentUserBlogs] = useState([]);
+  useEffect(() => {
+    const currentUserArticles = blogs.filter(
+      (blog) => blog?.author?.uid === auth?.currentUser?.uid
+    );
+    setCurrentUserBlogs(currentUserArticles);
+  }, [blogs]);
+
+  /* handle Delete post  */
+  const handleDeletePost = async (id) => {
+    const proceed = window.confirm("Are you sure?");
+    if (proceed) {
+      const url = `http://localhost:5000/blog/${id}`;
+      await fetch(url, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.acknowledged) {
+            toast.success("Article is deleted successfully done.");
+            const restArticles = currentUserBlogs.filter(
+              (blog) => blog._id !== id
+            );
+            setCurrentUserBlogs(restArticles);
+          }
+        });
+    }
+  };
+
   return (
     <ManagePostContainer id="manage-post">
       <div className="container">
         <h1>ManagePost</h1>
         <div className="table-wrapper">
-          {currentUserArticles.length > 0 ? (
+          {currentUserBlogs.length > 0 ? (
             <table>
               <thead>
                 <tr>
@@ -32,7 +58,7 @@ const ManagePost = () => {
                 </tr>
               </thead>
               <tbody>
-                {currentUserArticles.map((article, ind) => (
+                {currentUserBlogs.map((article, ind) => (
                   <tr key={article._id}>
                     <td>{ind + 1}</td>
                     <td>{article?.createdAt}</td>
@@ -57,12 +83,18 @@ const ManagePost = () => {
                       />
                     </td>
                     <td>
-                      <button className="btn btn-primary">
+                      <button
+                        onClick={() => navigate(`/update-post/${article?._id}`)}
+                        className="btn btn-primary"
+                      >
                         <BiEdit />
                       </button>
                     </td>
                     <td>
-                      <button className="btn btn-danger">
+                      <button
+                        onClick={() => handleDeletePost(article?._id)}
+                        className="btn btn-danger"
+                      >
                         <BiTrash />
                       </button>
                     </td>

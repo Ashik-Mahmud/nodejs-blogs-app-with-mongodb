@@ -1,28 +1,31 @@
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { auth } from "../../Firebase/Firebase.config";
+import useBlogs from "../../Hooks/useBlogs";
 
-const CreatePost = () => {
+const UpdatePost = () => {
+  const navigate = useNavigate();
+  const { blogs } = useBlogs();
   const formRef = useRef(null);
+  const { id } = useParams();
   const { register, handleSubmit } = useForm();
-  const onSubmit = async (data) => {
-    data.author = {
-      name: auth?.currentUser?.displayName,
-      uid: auth?.currentUser?.uid,
-    };
-    data.createdAt = new Date().toDateString();
 
-    await fetch(`http://localhost:5000/blogs`, {
-      method: "POST",
+  const currentArticles = blogs.find((blog) => blog?._id === id);
+
+  const onSubmit = async (data) => {
+    await fetch(`http://localhost:5000/blogs/${id}`, {
+      method: "PUT",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(data),
     })
       .then((res) => res.json())
       .then((result) => {
         if (result.acknowledged) {
-          toast.success(`Article created successfully done.`);
+          toast.success(`Article Updated successfully done.`);
+          navigate("/manage-post");
         }
       });
     formRef.current.reset();
@@ -35,7 +38,7 @@ const CreatePost = () => {
   };
 
   return (
-    <CreatePostContainer id="create-post">
+    <UpdatePostContainer className="update-post">
       <div className="container">
         <form
           action=""
@@ -43,7 +46,7 @@ const CreatePost = () => {
           className="form-wrapper"
           ref={formRef}
         >
-          <h1>Create Post</h1>
+          <h1>Update Post by {auth?.currentUser?.displayName}</h1>
           <div className="input-group">
             <label htmlFor="title">Title</label>
             <input
@@ -53,6 +56,7 @@ const CreatePost = () => {
               placeholder="Title"
               {...register("title", { required: true })}
               required
+              defaultValue={currentArticles?.title}
             />
           </div>
           <div className="input-group">
@@ -64,6 +68,7 @@ const CreatePost = () => {
               placeholder="Category"
               {...register("category", { required: true })}
               required
+              defaultValue={currentArticles?.category}
             />
           </div>
           <div className="input-group">
@@ -75,6 +80,7 @@ const CreatePost = () => {
               rows="7"
               {...register("description", { required: true })}
               required
+              defaultValue={currentArticles?.description}
             ></textarea>
           </div>
           <div className="input-group">
@@ -87,6 +93,7 @@ const CreatePost = () => {
               id="url"
               required
               onBlur={handleURLBlur}
+              defaultValue={currentArticles?.url}
             />
           </div>
           {imgUrl && (
@@ -95,20 +102,20 @@ const CreatePost = () => {
             </div>
           )}
           <div className="input-group">
-            <button className="btn btn-primary">Save Your Post</button>
+            <button className="btn btn-primary">Update Your Post</button>
           </div>
         </form>
       </div>
-    </CreatePostContainer>
+    </UpdatePostContainer>
   );
 };
 
-const CreatePostContainer = styled.section`
+const UpdatePostContainer = styled.section`
   position: relative;
-  padding: 2rem;
   .form-wrapper {
     width: 100%;
+    margin: 2rem;
   }
 `;
 
-export default CreatePost;
+export default UpdatePost;
