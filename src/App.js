@@ -12,6 +12,7 @@ import SignUp from "./Pages/Login/SignUp/SignUp";
 import ManagePost from './Pages/ManagePost/ManagePost';
 import Footer from './Shared/Footer/Footer';
 import Header from './Shared/Header/Header';
+import NotFound from './Shared/NotFound/NotFound';
 export const AppContext = createContext(null);
 function App() {
     const {user, isAuth} = useFirebase();
@@ -32,6 +33,9 @@ function App() {
           <Route path='/manage-post' element={<RequireAuth><ManagePost /></RequireAuth>} />
           <Route path='/login' element={<Login />} />
           <Route path='/sign-up' element={<SignUp />} />
+
+          {/* not found route */} 
+          <Route path='*' element={<NotFound />} />
       </Routes>
       <Footer />
      </AppContext.Provider>
