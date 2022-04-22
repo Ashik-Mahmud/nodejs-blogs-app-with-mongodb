@@ -14,7 +14,7 @@ const useBlogs = () => {
       });
   }, []);
 
-  return { blogs, loading };
+  return { setBlogs, blogs, loading };
 };
 
 export default useBlogs;
