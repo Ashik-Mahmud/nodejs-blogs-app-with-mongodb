@@ -50,15 +50,19 @@ const Header = () => {
           {isAuth ? (
             <div className="profile">
               <div className="avatar">
-                <img
-                  width={50}
-                  src={
-                    auth?.currentUser?.photoURL
-                      ? auth?.currentUser?.photoURL
-                      : '"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD5iROb1TgJ_rcl-6r-68v1yjtID052zxSkw&usqp=CAU"'
-                  }
-                  alt="avatar"
-                />
+                {auth?.currentUser?.photoURL ? (
+                  <img
+                    width={50}
+                    src={
+                      auth?.currentUser?.photoURL
+                        ? auth?.currentUser?.photoURL
+                        : '"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD5iROb1TgJ_rcl-6r-68v1yjtID052zxSkw&usqp=CAU"'
+                    }
+                    alt="avatar"
+                  />
+                ) : (
+                  auth?.currentUser?.displayName?.slice(0, 1)
+                )}
               </div>
               <div className="details">
                 <h4>
@@ -136,8 +140,14 @@ const HeaderContainer = styled.header`
         width: 60px;
         height: 60px;
         border-radius: 50%;
-        border: 3px solid #f8f8f8;
+        border: 3px solid #e2e0e0;
         overflow: hidden;
+        display: grid;
+        place-items: center;
+        font-size: 2rem;
+        color: var(--primary-color);
+        font-weight: bold;
+        user-select: none;
         img {
           width: 100%;
           height: 100%;
