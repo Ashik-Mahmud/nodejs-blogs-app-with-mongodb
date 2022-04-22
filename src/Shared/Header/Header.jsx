@@ -1,10 +1,23 @@
-import React from "react";
-import { AiOutlineLogin } from "react-icons/ai";
+import { signOut } from "firebase/auth";
+import React, { useContext } from "react";
+import toast from "react-hot-toast";
+import { AiOutlineLogin, AiOutlineLogout } from "react-icons/ai";
 import { FaBloggerB } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { AppContext } from "../../App";
+import { auth } from "../../Firebase/Firebase.config";
 const Header = () => {
+  const { isAuth } = useContext(AppContext);
   const navigate = useNavigate();
+
+  /* handle Log out  */
+  const logOut = async () => {
+    await signOut(auth).then(() => {
+      toast.success(`Log out successfully done.`);
+    });
+  };
+
   return (
     <HeaderContainer id="header">
       <div className="container">
@@ -26,28 +39,43 @@ const Header = () => {
               <NavLink to="/manage-post">Manage Post</NavLink>
             </li>
           </ul>
-          {/*  <div className="profile">
-            <div className="avatar">
-              <img
-                width={50}
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD5iROb1TgJ_rcl-6r-68v1yjtID052zxSkw&usqp=CAU"
-                alt="avatar"
-              />
+          {isAuth ? (
+            <div className="profile">
+              <div className="avatar">
+                <img
+                  width={50}
+                  src={
+                    auth?.currentUser?.photoURL
+                      ? auth?.currentUser?.photoURL
+                      : '"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD5iROb1TgJ_rcl-6r-68v1yjtID052zxSkw&usqp=CAU"'
+                  }
+                  alt="avatar"
+                />
+              </div>
+              <div className="details">
+                <h4>
+                  {auth?.currentUser?.displayName
+                    ? auth?.currentUser?.displayName
+                    : "Not Available"}
+                </h4>
+                <small title={auth?.currentUser?.email}>
+                  {auth?.currentUser?.email
+                    ? auth?.currentUser?.email.slice(0, 14) + "..."
+                    : "Not Available"}
+                </small>
+              </div>
+              <button onClick={logOut} className="btn btn-danger">
+                <AiOutlineLogout /> Log Out
+              </button>
             </div>
-            <div className="details">
-              <h4>Ashik Mahmud</h4>
-              <small>Not available</small>
-            </div>
-            <button className="btn btn-danger">
-              <AiOutlineLogout /> Log Out
+          ) : (
+            <button
+              onClick={() => navigate("/login")}
+              className="btn btn-primary"
+            >
+              <AiOutlineLogin /> Login
             </button>
-          </div> */}
-          <button
-            onClick={() => navigate("/login")}
-            className="btn btn-primary"
-          >
-            <AiOutlineLogin /> Login
-          </button>
+          )}
         </nav>
       </div>
     </HeaderContainer>
