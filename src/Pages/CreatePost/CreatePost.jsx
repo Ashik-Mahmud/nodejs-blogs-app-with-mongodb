@@ -2,11 +2,18 @@ import React, { useRef } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import styled from "styled-components";
+import { auth } from "../../Firebase/Firebase.config";
 
 const CreatePost = () => {
   const formRef = useRef(null);
   const { register, handleSubmit } = useForm();
   const onSubmit = async (data) => {
+    data.author = {
+      name: auth?.currentUser?.displayName,
+      uid: auth?.currentUser?.uid,
+    };
+    data.createdAt = new Date().toDateString();
+
     await fetch(`http://localhost:5000/blogs`, {
       method: "POST",
       headers: { "content-type": "application/json" },

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Blog = () => {
+const Blog = ({ title, category, description, author, createdAt }) => {
   return (
     <BlogContainer>
       <div className="image">
@@ -11,23 +11,27 @@ const Blog = () => {
         />
       </div>
       <div className="details">
-        <h3>Title Goes here</h3>
+        <h3>{title}</h3>
         <ul className="meta">
           <li>
-            <span className="colorize">23 Jan, 2022</span>
+            <span className="colorize">{createdAt}</span>
           </li>
           <li>
-            <span className="colorize">Ashik Mahmud</span>
+            <span className="colorize">{author?.name}</span>
           </li>
           <li>
-            <span className="colorize">Tech</span>
+            <span className="colorize">{category}</span>
           </li>
         </ul>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores
-          sapiente quo asperiores nemo, ratione labore aperiam ad repellendus
-          commodi eum.{" "}
-          <span className="colorize cursor-pointer">Read more</span>
+          {description?.length > 300 ? (
+            <>
+              {description.slice(0, 300)}
+              <span className="colorize cursor-pointer">Read more</span>
+            </>
+          ) : (
+            description
+          )}
         </p>
       </div>
     </BlogContainer>
