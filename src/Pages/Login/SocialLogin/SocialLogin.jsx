@@ -1,12 +1,16 @@
 import React from "react";
-
+import { AiOutlineFacebook, AiOutlineGoogle } from "react-icons/ai";
 const SocialLogin = () => {
   return (
     <div className="social-login">
       <div className="line">Or</div>
       <div className="btn-group">
-        <button>Google</button>
-        <button>Facebook</button>
+        <button>
+          <AiOutlineGoogle />
+        </button>
+        <button>
+          <AiOutlineFacebook />
+        </button>
       </div>
     </div>
   );

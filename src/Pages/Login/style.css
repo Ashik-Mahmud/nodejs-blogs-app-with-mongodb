@@ -40,3 +40,48 @@
 .form-wrapper p {
   margin: 0.3rem 0rem;
 }
+
+.social-login {
+  margin: 0.3rem 0rem;
+  position: relative;
+}
+.line {
+  text-align: center;
+  color: var(--primary-color);
+  position: relative;
+}
+.line::after,
+.line::before {
+  content: "";
+  width: 45%;
+  height: 1px;
+  background-color: var(--primary-color);
+  display: block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.line::before {
+  right: 0%;
+}
+.btn-group {
+  text-align: center;
+  position: relative;
+  display: flex;
+  gap: 0.3rem;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+.btn-group button {
+  width: 50px;
+  height: 50px;
+  border: 1px solid var(--primary-color);
+  font-size: 1.3rem;
+  color: var(--primary-color);
+  border-radius: 50%;
+  cursor: pointer;
+  background: transparent;
+  display: grid;
+  place-items: center;
+}
