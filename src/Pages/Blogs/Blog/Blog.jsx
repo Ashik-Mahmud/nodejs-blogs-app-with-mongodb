@@ -21,9 +21,9 @@ const Blog = ({ title, category, description, author, createdAt, url }) => {
           </li>
         </ul>
         <p>
-          {description?.length > 300 ? (
+          {description?.length > 200 ? (
             <>
-              {description.slice(0, 300)}
+              {description.slice(0, 200)}{" "}
               <span className="colorize cursor-pointer">Read more</span>
             </>
           ) : (
