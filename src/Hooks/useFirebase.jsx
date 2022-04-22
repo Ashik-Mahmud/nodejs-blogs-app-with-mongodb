@@ -1,5 +1,6 @@
 import { onAuthStateChanged, signInWithPopup } from "firebase/auth";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { auth } from "../Firebase/Firebase.config";
 const useFirebase = () => {
   const [user, setUser] = useState({});
@@ -9,11 +10,10 @@ const useFirebase = () => {
   const handleSocialLogin = async (provider) => {
     signInWithPopup(auth, provider)
       .then((result) => {
-        console.log(result);
         setLoading(true);
       })
       .catch((error) => {
-        console.log(error);
+        toast.error(error.message.split(":")[1]);
       });
   };
 

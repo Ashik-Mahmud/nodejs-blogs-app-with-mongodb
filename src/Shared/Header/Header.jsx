@@ -15,6 +15,7 @@ const Header = () => {
   const logOut = async () => {
     await signOut(auth).then(() => {
       toast.success(`Log out successfully done.`);
+      navigate("/login");
     });
   };
 
@@ -33,11 +34,18 @@ const Header = () => {
               <NavLink to="/blogs">Blogs</NavLink>
             </li>
             <li>
-              <NavLink to="/create-post">Create Post</NavLink>
+              <NavLink to="/">About</NavLink>
             </li>
-            <li>
-              <NavLink to="/manage-post">Manage Post</NavLink>
-            </li>
+            {isAuth && (
+              <>
+                <li>
+                  <NavLink to="/create-post">Create Post</NavLink>
+                </li>
+                <li>
+                  <NavLink to="/manage-post">Manage Post</NavLink>
+                </li>
+              </>
+            )}
           </ul>
           {isAuth ? (
             <div className="profile">
