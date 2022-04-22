@@ -4,10 +4,10 @@ import Blogs from './Pages/Blogs/Blogs';
 import CreatePost from './Pages/CreatePost/CreatePost';
 import Home from './Pages/Home/Home/Home';
 import Login from './Pages/Login/Login/Login';
+import SignUp from "./Pages/Login/SignUp/SignUp";
 import ManagePost from './Pages/ManagePost/ManagePost';
 import Footer from './Shared/Footer/Footer';
 import Header from './Shared/Header/Header';
-
 function App() {
   return (
     <>
@@ -19,6 +19,7 @@ function App() {
           <Route path='/create-post' element={<CreatePost />} />
           <Route path='/manage-post' element={<ManagePost />} />
           <Route path='/login' element={<Login />} />
+          <Route path='/sign-up' element={<SignUp />} />
       </Routes>
       <Footer />
     </>

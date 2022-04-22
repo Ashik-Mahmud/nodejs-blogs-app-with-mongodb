@@ -1,0 +1,41 @@
+/* login  */
+.login-container,
+.sign-up-container {
+  display: grid;
+  place-items: center;
+  min-height: 85vh;
+  position: relative;
+}
+.form-wrapper {
+  width: 460px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  position: relative;
+  border-radius: 5px;
+}
+.form-wrapper .input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  position: relative;
+  margin-bottom: 0.6rem;
+}
+.input-group input {
+  width: 100%;
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  outline: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-family: poppins;
+}
+.form-wrapper h2 {
+  margin-bottom: 1rem;
+}
+.input-group button {
+  text-align: center;
+  justify-content: center;
+}
+.form-wrapper p {
+  margin: 0.3rem 0rem;
+}
