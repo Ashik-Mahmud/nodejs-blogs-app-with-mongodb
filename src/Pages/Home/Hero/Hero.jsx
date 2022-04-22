@@ -1,6 +1,6 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
-
 const Hero = () => {
   return (
     <HeroContainer>
@@ -16,7 +16,9 @@ const Hero = () => {
               definently read the much books which one make of your knowledge
               wider
             </p>
-            <button className="btn btn-primary">Read Articles</button>
+            <Link to="/blogs" className="btn btn-primary">
+              Read Articles
+            </Link>
           </div>
           <div className="hero-image">
             <img

@@ -1,7 +1,17 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const Blog = ({ title, category, description, author, createdAt, url }) => {
+const Blog = ({
+  _id,
+  title,
+  category,
+  description,
+  author,
+  createdAt,
+  url,
+}) => {
+  const navigate = useNavigate();
   return (
     <BlogContainer>
       <div className="image">
@@ -24,7 +34,12 @@ const Blog = ({ title, category, description, author, createdAt, url }) => {
           {description?.length > 200 ? (
             <>
               {description.slice(0, 200)}{" "}
-              <span className="colorize cursor-pointer">Read more</span>
+              <span
+                onClick={() => navigate(`/blog-detail/${_id}`)}
+                className="colorize cursor-pointer"
+              >
+                Read more
+              </span>
             </>
           ) : (
             description

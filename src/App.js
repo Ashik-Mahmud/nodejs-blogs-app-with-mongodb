@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import RequireAuth from './Auth/RequireAuth';
 import useFirebase from './Hooks/useFirebase';
+import BlogDetails from './Pages/BlogDetails/BlogDetails';
 import Blogs from './Pages/Blogs/Blogs';
 import CreatePost from './Pages/CreatePost/CreatePost';
 import Home from './Pages/Home/Home/Home';
@@ -30,6 +31,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/home' element={<Home />} />
           <Route path='/blogs' element={<Blogs />} />
+          <Route path='/blog-detail/:blogId' element={<BlogDetails />} />
           <Route path='/create-post' element={<RequireAuth><CreatePost /></RequireAuth>} />
           <Route path='/manage-post' element={<RequireAuth><ManagePost /></RequireAuth>} />
           <Route path='/update-post/:id' element={<RequireAuth><UpdatePost /></RequireAuth>} />
