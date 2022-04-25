@@ -23,7 +23,7 @@ const ManagePost = () => {
   const handleDeletePost = async (id) => {
     const proceed = window.confirm("Are you sure?");
     if (proceed) {
-      const url = `http://localhost:5000/blog/${id}`;
+      const url = `https://node-blog-management.herokuapp.com/blog/${id}`;
       await fetch(url, {
         method: "DELETE",
       })

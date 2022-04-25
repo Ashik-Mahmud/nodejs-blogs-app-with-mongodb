@@ -14,7 +14,7 @@ const Blogs = () => {
   const handleSearch = async () => {
     if (!search) return toast.error("Search Field is required.");
     await fetch(
-      `http://localhost:5000/blogs/search?title=${search.toLowerCase()}`
+      `https://node-blog-management.herokuapp.com/blogs/search?title=${search.toLowerCase()}`
     )
       .then((res) => res.json())
       .then((data) => setBlogs(data));

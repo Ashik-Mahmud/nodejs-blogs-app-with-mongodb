@@ -19,7 +19,7 @@ const UpdatePost = () => {
   const currentArticles = blogs.find((blog) => blog?._id === id);
 
   const onSubmit = async (data) => {
-    await fetch(`http://localhost:5000/blogs/${id}`, {
+    await fetch(`https://node-blog-management.herokuapp.com/blogs/${id}`, {
       method: "PUT",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(data),
