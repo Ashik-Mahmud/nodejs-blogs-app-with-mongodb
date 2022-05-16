@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import useBlogs from "../../Hooks/useBlogs";
 import useTitle from "../../Hooks/useTitle";
+import CommentBody from "./CommentBody";
+import CommentBox from "./CommentBox";
 
 const BlogDetails = () => {
   const { blogId } = useParams();
   const { blogs } = useBlogs();
+  const [showCommentBox, setShowCommentBox] = useState(false);
 
   const singleBlog = blogs.find((blog) => blog._id === blogId);
   useTitle(singleBlog?.title);
@@ -34,6 +37,25 @@ const BlogDetails = () => {
             </ul>
             <div className="details">
               <p>{singleBlog?.description}</p>
+            </div>
+            <div className="comments-area">
+              <div className="comments-area-title">
+                <h2>All Comments -</h2>
+                <span
+                  onClick={() => setShowCommentBox((prevState) => !prevState)}
+                  className="toggle-comment-box"
+                >
+                  {showCommentBox ? "Hide" : "Show"} Comment
+                </span>
+              </div>
+              {showCommentBox && (
+                <div className="comment-box">
+                  <CommentBox />
+                </div>
+              )}
+              <div className="comments">
+                <CommentBody />
+              </div>
             </div>
           </div>
         </div>
@@ -75,6 +97,25 @@ const BlogDetailsContainer = styled.section`
         color: #666;
         margin: 1rem 0rem;
         text-align: justify;
+      }
+    }
+  }
+  .comments-area {
+    margin: 2rem 0rem;
+    padding: 1rem 2rem;
+    border-top: 1px solid #ccc;
+    .comments-area-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0.3rem 0rem;
+      .toggle-comment-box {
+        cursor: pointer;
+        background-color: var(--primary-color);
+        color: #fff;
+        padding: 3px 6px;
+        font-size: 0.9rem;
+        border-radius: 4px;
       }
     }
   }
