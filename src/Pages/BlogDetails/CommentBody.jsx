@@ -1,21 +1,26 @@
 import React from "react";
 import { BsTrash } from "react-icons/bs";
 import styled from "styled-components";
-const CommentBody = () => {
+const CommentBody = ({ comment, author, createdAt }) => {
   return (
     <CommentBodyContainer>
       <div className="avatar">
-        <span>A</span>
+        {author?.photoUrl ? (
+          <img src={author?.photoUrl} alt={author?.name} />
+        ) : (
+          <span>{author?.name.slice(0, 1)}</span>
+        )}
       </div>
       <div className="details">
         <div className="title">
-          <h3>Ashik Mahmud</h3>
+          <h3>{author?.name}</h3>
           <ul>
-            <li>May 17th 2022</li>
-            <li>1:59:46 am</li>
+            {createdAt.split("-").map((name, ind) => (
+              <li key={name + ind}>{name}</li>
+            ))}
           </ul>
         </div>
-        <p className="comment-text">Are you sure? is this work?</p>
+        <p className="comment-text">{comment}</p>
         <div className="delete">
           <BsTrash />
         </div>
@@ -30,7 +35,7 @@ const CommentBodyContainer = styled.div`
   border-radius: 5px;
   display: flex;
   gap: 1.5rem;
-  margin: 0.5rem 0rem;
+  margin: 1rem 0rem;
   .delete {
     position: absolute;
     bottom: 5px;
@@ -46,7 +51,13 @@ const CommentBodyContainer = styled.div`
     place-items: center;
     font-size: 2rem;
     font-weight: bold;
+    overflow: hidden;
     border-radius: 4px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
   .details {
     position: relative;

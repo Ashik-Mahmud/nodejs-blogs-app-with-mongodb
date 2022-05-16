@@ -1,15 +1,47 @@
+import axios from "axios";
 import React, { useState } from "react";
+import { toast } from "react-hot-toast";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import Loader from "../../Components/Loader/Loader";
+import { auth } from "../../Firebase/Firebase.config";
 import useBlogs from "../../Hooks/useBlogs";
+import useComment from "../../Hooks/useComment";
 import useTitle from "../../Hooks/useTitle";
 import CommentBody from "./CommentBody";
 import CommentBox from "./CommentBox";
-
 const BlogDetails = () => {
   const { blogId } = useParams();
   const { blogs } = useBlogs();
+  const [refetch, setRefetch] = useState(false);
   const [showCommentBox, setShowCommentBox] = useState(false);
+
+  const [comments, loading] = useComment(blogId, refetch);
+
+  /* handle Comments box */
+  const handleCommentForm = async (event) => {
+    event.preventDefault();
+    const commentText = event.target.comment.value;
+    if (!commentText) return toast.error(`Comment Field is required.`);
+
+    await axios
+      .post(`http://localhost:5000/comment`, {
+        comment: commentText,
+        postId: blogId,
+        createdAt:
+          new Date().toDateString() + "-" + new Date().toLocaleTimeString(),
+        author: {
+          name: auth.currentUser?.displayName,
+          uid: auth?.currentUser?.uid,
+          photoUrl: auth?.currentUser?.photoURL,
+        },
+      })
+      .then((data) => {
+        toast.success(data?.data?.message);
+        event.target.reset();
+        setRefetch(true);
+      });
+  };
 
   const singleBlog = blogs.find((blog) => blog._id === blogId);
   useTitle(singleBlog?.title);
@@ -50,11 +82,21 @@ const BlogDetails = () => {
               </div>
               {showCommentBox && (
                 <div className="comment-box">
-                  <CommentBox />
+                  <CommentBox handleCommentForm={handleCommentForm} />
                 </div>
               )}
               <div className="comments">
-                <CommentBody />
+                {!loading ? (
+                  comments.length > 0 ? (
+                    comments.map((comment) => (
+                      <CommentBody key={comment._id} {...comment} />
+                    ))
+                  ) : (
+                    "No comments added yet."
+                  )
+                ) : (
+                  <Loader />
+                )}
               </div>
             </div>
           </div>

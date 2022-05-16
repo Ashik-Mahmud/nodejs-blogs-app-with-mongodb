@@ -1,23 +1,39 @@
 import React from "react";
 import { BiSend } from "react-icons/bi";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { auth } from "../../Firebase/Firebase.config";
 
-const CommentBox = () => {
+const CommentBox = ({ handleCommentForm }) => {
+  const navigate = useNavigate();
   return (
     <CommentBoxContainer>
-      <form action="/">
+      <form action="/" onSubmit={handleCommentForm}>
         <div className="input-group">
           <div className="image">
-            <img src="https://i.ibb.co/LtSrBZh/Parker96.webp" alt="avatar" />
+            <img
+              src={`${
+                auth?.currentUser?.photoURL
+                  ? auth.currentUser.photoURL
+                  : "https://i.ibb.co/LtSrBZh/Parker96.webp"
+              }`}
+              alt="avatar"
+            />
           </div>
           <input
             type="text"
             placeholder="Write here comment..."
-            name="comment-box"
+            name="comment"
           />
-          <button>
-            <BiSend />
-          </button>
+          {auth?.currentUser ? (
+            <button type="submit">
+              <BiSend />
+            </button>
+          ) : (
+            <button type="button" onClick={() => navigate(`/login`)}>
+              <BiSend />
+            </button>
+          )}
         </div>
       </form>
     </CommentBoxContainer>
