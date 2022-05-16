@@ -7,6 +7,9 @@ const CommentBox = () => {
     <CommentBoxContainer>
       <form action="/">
         <div className="input-group">
+          <div className="image">
+            <img src="https://i.ibb.co/LtSrBZh/Parker96.webp" alt="avatar" />
+          </div>
           <input
             type="text"
             placeholder="Write here comment..."
@@ -34,6 +37,19 @@ const CommentBoxContainer = styled.div`
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 0.3rem;
+    .image {
+      border-radius: 5px;
+      margin-right: 0.6rem;
+      width: 60px;
+      height: 50px;
+      overflow: hidden;
+      border: 1px solid #ccc;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
     input {
       border: 1px solid transparent;
     }

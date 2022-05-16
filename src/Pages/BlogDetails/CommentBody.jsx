@@ -5,7 +5,7 @@ const CommentBody = () => {
   return (
     <CommentBodyContainer>
       <div className="avatar">
-        <span>N</span>
+        <span>A</span>
       </div>
       <div className="details">
         <div className="title">
