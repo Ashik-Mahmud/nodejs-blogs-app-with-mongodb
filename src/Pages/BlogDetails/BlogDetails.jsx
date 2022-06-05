@@ -39,9 +39,11 @@ const BlogDetails = () => {
         },
       }),
     }).then((data) => {
-      toast.success(data?.message);
-      event.target.reset();
-      setRefetch((prev) => !prev);
+      if (data.ok) {
+        toast.success("Comment added done.");
+        event.target.reset();
+        setRefetch((prev) => !prev);
+      }
     });
   };
 
