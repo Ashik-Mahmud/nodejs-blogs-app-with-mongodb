@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-hot-toast";
 import { useParams } from "react-router-dom";
@@ -17,15 +16,18 @@ const BlogDetails = () => {
   const [showCommentBox, setShowCommentBox] = useState(false);
 
   const [comments, loading] = useComment(blogId, refetch);
-
   /* handle Comments box */
   const handleCommentForm = async (event) => {
     event.preventDefault();
     const commentText = event.target.comment.value;
     if (!commentText) return toast.error(`Comment Field is required.`);
 
-    await axios
-      .post(`http://localhost:5000/comment`, {
+    fetch(`https://node-blog-management.herokuapp.com/comment`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
         comment: commentText,
         postId: blogId,
         createdAt:
@@ -35,19 +37,19 @@ const BlogDetails = () => {
           uid: auth?.currentUser?.uid,
           photoUrl: auth?.currentUser?.photoURL,
         },
-      })
-      .then((data) => {
-        toast.success(data?.data?.message);
-        event.target.reset();
-        setRefetch((prev) => !prev);
-      });
+      }),
+    }).then((data) => {
+      toast.success(data?.message);
+      event.target.reset();
+      setRefetch((prev) => !prev);
+    });
   };
 
   /*  Handle Deleted Comment  */
   const handleDeleteComment = async (id) => {
     const isConfirm = window.confirm("Are you sure to delete this comment?");
     if (isConfirm) {
-      await fetch(`http://localhost:5000/comment/${id}`, {
+      await fetch(`https://node-blog-management.herokuapp.com/comment/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())

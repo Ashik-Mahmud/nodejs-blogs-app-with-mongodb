@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 
 const useComment = (postId, refetch) => {
@@ -6,10 +5,12 @@ const useComment = (postId, refetch) => {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     (async () => {
-      axios
-        .get(`http://localhost:5000/comments?postId=${postId}`)
+      fetch(
+        `https://node-blog-management.herokuapp.com/comments?postId=${postId}`
+      )
+        .then((res) => res.json())
         .then((data) => {
-          setComments(data.data.result);
+          setComments(data?.result);
           setLoading(true);
         });
     })();
