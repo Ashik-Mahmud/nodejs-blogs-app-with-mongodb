@@ -1,7 +1,14 @@
 import React from "react";
 import { BsTrash } from "react-icons/bs";
 import styled from "styled-components";
-const CommentBody = ({ comment, author, createdAt }) => {
+import { auth } from "../../Firebase/Firebase.config";
+const CommentBody = ({
+  comment,
+  author,
+  createdAt,
+  _id,
+  handleDeleteComment,
+}) => {
   return (
     <CommentBodyContainer>
       <div className="avatar">
@@ -21,9 +28,11 @@ const CommentBody = ({ comment, author, createdAt }) => {
           </ul>
         </div>
         <p className="comment-text">{comment}</p>
-        <div className="delete">
-          <BsTrash />
-        </div>
+        {auth?.currentUser?.uid === author?.uid && (
+          <div className="delete" onClick={() => handleDeleteComment(_id)}>
+            <BsTrash />
+          </div>
+        )}
       </div>
     </CommentBodyContainer>
   );

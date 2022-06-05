@@ -12,7 +12,7 @@ import CommentBody from "./CommentBody";
 import CommentBox from "./CommentBox";
 const BlogDetails = () => {
   const { blogId } = useParams();
-  const { blogs } = useBlogs();
+  const { blogs, loading: blogLoading } = useBlogs();
   const [refetch, setRefetch] = useState(false);
   const [showCommentBox, setShowCommentBox] = useState(false);
 
@@ -39,12 +39,28 @@ const BlogDetails = () => {
       .then((data) => {
         toast.success(data?.data?.message);
         event.target.reset();
-        setRefetch(true);
+        setRefetch((prev) => !prev);
       });
   };
 
+  /*  Handle Deleted Comment  */
+  const handleDeleteComment = async (id) => {
+    const isConfirm = window.confirm("Are you sure to delete this comment?");
+    if (isConfirm) {
+      await fetch(`http://localhost:5000/comment/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          toast.success(data?.message);
+          setRefetch((prev) => !prev);
+        });
+    }
+  };
+
   const singleBlog = blogs.find((blog) => blog._id === blogId);
-  useTitle(singleBlog?.title);
+  useTitle(singleBlog?.title || "loading....");
+  if (!blogLoading) return <Loader />;
   return (
     <BlogDetailsContainer>
       <div className="container">
@@ -86,10 +102,14 @@ const BlogDetails = () => {
                 </div>
               )}
               <div className="comments">
-                {!loading ? (
+                {loading ? (
                   comments.length > 0 ? (
                     comments.map((comment) => (
-                      <CommentBody key={comment._id} {...comment} />
+                      <CommentBody
+                        handleDeleteComment={handleDeleteComment}
+                        key={comment._id}
+                        {...comment}
+                      />
                     ))
                   ) : (
                     "No comments added yet."
