@@ -16,7 +16,7 @@ const CreatePost = () => {
     };
     data.createdAt = new Date().toDateString();
 
-    await fetch(`https://node-blog-management.herokuapp.com/blogs`, {
+    await fetch(`https://simple-blogs-app-v1.onrender.com/blogs`, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(data),

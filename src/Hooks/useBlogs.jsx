@@ -5,7 +5,7 @@ const useBlogs = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const url = `https://node-blog-management.herokuapp.com/blogs`;
+    const url = `https://simple-blogs-app-v1.onrender.com/blogs`;
     fetch(url)
       .then((res) => res.json())
       .then((data) => {

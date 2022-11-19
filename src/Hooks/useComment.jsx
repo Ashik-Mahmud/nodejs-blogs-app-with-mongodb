@@ -6,7 +6,7 @@ const useComment = (postId, refetch) => {
   useEffect(() => {
     (async () => {
       fetch(
-        `https://node-blog-management.herokuapp.com/comments?postId=${postId}`
+        `https://simple-blogs-app-v1.onrender.com/comments?postId=${postId}`
       )
         .then((res) => res.json())
         .then((data) => {

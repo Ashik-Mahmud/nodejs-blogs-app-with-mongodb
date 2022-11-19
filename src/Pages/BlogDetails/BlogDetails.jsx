@@ -22,7 +22,7 @@ const BlogDetails = () => {
     const commentText = event.target.comment.value;
     if (!commentText) return toast.error(`Comment Field is required.`);
 
-    fetch(`https://node-blog-management.herokuapp.com/comment`, {
+    fetch(`https://simple-blogs-app-v1.onrender.com/comment`, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -51,7 +51,7 @@ const BlogDetails = () => {
   const handleDeleteComment = async (id) => {
     const isConfirm = window.confirm("Are you sure to delete this comment?");
     if (isConfirm) {
-      await fetch(`https://node-blog-management.herokuapp.com/comment/${id}`, {
+      await fetch(`https://simple-blogs-app-v1.onrender.com/comment/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
